@@ -10,6 +10,8 @@ w = sp.symbols('w')
 # for me is more comfortable to use it as a constant.
 phi = 1.68
 
+# This is just a comment to know if git works here!!
+
 
 # Functions (v(t) and a(t))
 function_vt = -1*(a * sp.sin(w * t + phi))
