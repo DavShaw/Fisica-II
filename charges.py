@@ -143,7 +143,7 @@ def getAceleration(mass, fy: list):
   return sp.solve(equation,a)[0]
 
 def generateChargesCoordenates(start, end, delta, y = 0):
-  i = 0
+  i = start
   coords = []
   while True:
     if i >= end:
@@ -185,27 +185,27 @@ def functionOf(textFunction, variable, evaluatefor):
 # The simulation
 
 # Limits for plot
-xLimits, yLimits = (-5,25), (-2,8)
+xLimits, yLimits = (-15,15), (-15,15)
 
 # Limits for charges (positives)
-intervalForCharges = (0,20)
+intervalForCharges = (-5,5)
 start, stop = intervalForCharges
 
 # Generate the negatives line
-negativesLineY = [functionOf("5.5","x",i) for i in range(start, stop)]
+negativesLineY = [functionOf("0","x",i) for i in range(start, stop)]
 negativesLineX = [i for i in range(start, stop)]
 
 # Generate the positives line
-positivesLineY = [functionOf("2","x",i) for i in range(start, stop)]
+positivesLineY = [functionOf("-5","x",i) for i in range(start, stop)]
 positivesLineX = [i for i in range(start, stop)]
 
 # Generate charges coords - values - mass and more stuff
-chargesCoords = generateChargesCoordenates(start, stop, 1, 2)
+chargesCoords = generateChargesCoordenates(start, stop, 0.05, -5)
 chargesValues = generateChargeValue(len(chargesCoords))
 chargesValues = [2*10**(-6)]*len(chargesCoords)
 charges = [Charge(chargesValues[i], chargesCoords[i][0], chargesCoords[i][1]) for i in range(len(chargesCoords))]
 
-puntualChargeCoords = (3,5.5)
+puntualChargeCoords = (0,0)
 # Mass got from internet
 puntualChargeMass = 9.109e-31
 puntualCharge = Charge(-2, puntualChargeCoords[0], puntualChargeCoords[1])
@@ -215,7 +215,6 @@ chargesCoordsY = [y[1] for y in chargesCoords]
 
 
 # Let's move the charge!
-xLimits, yLimits = (-5*2, 25), (-2*2, 8)
 
 fig, ax = plt.subplots()
 ax.set_xlim(xLimits)
