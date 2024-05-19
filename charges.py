@@ -215,7 +215,7 @@ chargesCoordsY = [y[1] for y in chargesCoords]
 
 
 # Let's move the charge!
-xLimits, yLimits = (-5, 25), (-2, 8)
+xLimits, yLimits = (-5*2, 25), (-2*2, 8)
 
 fig, ax = plt.subplots()
 ax.set_xlim(xLimits)
@@ -273,14 +273,16 @@ def animate(frame):
   # Get position (Using MRUA eq) (x) (y)
   xPosition = position(xPosition, vx, xAceleration, time)
   yPosition = position(yPosition, vy, yAceleration, time)
+  fx = xPosition/10**35
+  fy = yPosition/10**35
   totalPost.append((xPosition, yPosition))
 
-  ax.scatter(xPosition, yPosition, color='blue')
+  point = ax.scatter(fx, fy, color='blue')
   posText.set_text(f"Pos (x,y) = ({(xPosition)}, {(yPosition)})")
   velocityText.set_text(f"Vel (x,y) = ({(vx)}, {(vy)})")
   acelerationText.set_text(f"Acel (x,y) = ({(xAceleration)}, {(yAceleration)})")
   print((f"(t: {time}) Pos (x,y) = ({(xPosition)}, {(yPosition)})"))
-  return posText, velocityText, acelerationText
+  return point, posText, velocityText, acelerationText
 
 
 # ChatGPT helps us here
