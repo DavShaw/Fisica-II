@@ -111,6 +111,9 @@ puntualCharge = Charge(-2, puntualChargeCoords[0], puntualChargeCoords[1])
 chargesCoordsX = [x[0] for x in chargesCoords]
 chargesCoordsY = [y[1] for y in chargesCoords]
 
+xPosition = puntualChargeCoords[0]
+yPosition = puntualChargeCoords[1]
+
 
 # Let's move the charge!
 fig, ax = plt.subplots()
@@ -124,16 +127,9 @@ posText = ax.text(0.05, 0.95, '', transform=ax.transAxes, ha='left', fontsize=10
 acelerationText = ax.text(0.05, 0.90, '', transform=ax.transAxes, ha='left', fontsize=10)
 velocityText = ax.text(0.05, 0.85, '', transform=ax.transAxes, ha='left', fontsize=10)
 
-
-xPosition = puntualChargeCoords[0]
-yPosition = puntualChargeCoords[1]
-
-scientificNotation = lambda n: f"{n:.3e}"
-
 interval = 10
 lastxVelocity = 0
 lastyVelocity = 0
-totalPost = []
 
 def animate(frame):
   global xPosition, yPosition, interval, lastxVelocity, lastyVelocity, totalPost
@@ -163,15 +159,12 @@ def animate(frame):
   scalar = 1e35
 
   fx, fy = xPosition/scalar, yPosition/scalar
-  totalPost.append((xPosition, yPosition))
 
   point = ax.scatter(fx, fy, color='blue')
   posText.set_text(f"Pos (x,y) = ({(xPosition)}, {(yPosition)})")
   velocityText.set_text(f"Vel (x,y) = ({(vx)}, {(vy)})")
   acelerationText.set_text(f"Acel (x,y) = ({(xAceleration)}, {(yAceleration)})")
-  print((f"(t: {time}) Pos (x,y) = ({(xPosition)}, {(yPosition)})"))
   return point, posText, velocityText, acelerationText
-
 
 # ChatGPT helps us here
 ani = animation.FuncAnimation(fig, animate, frames=100000, interval=interval, blit=True)
